@@ -25,6 +25,17 @@ int main(void)
 	{
 		printf("%d is zero\n", n);
 	}
+<<<<<<< HEAD
+	else if (n == 0)
+	{       
+        printf("%d is zero\n", n);
+        } 
+	else
+	{       
+        printf("%d is negative\n", n);
+        } 
+=======
+>>>>>>> 8c5dd04ba28da4496dc380a696589a8add99a510
 	return (0);
 }
 
