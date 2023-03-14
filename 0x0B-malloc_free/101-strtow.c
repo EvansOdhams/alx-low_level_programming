@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "holberton.h"
+#include "main.h"
 
 /**
 * count_word - helper function to count the number of words in a string
@@ -13,7 +13,6 @@ int flag, c, w;
 
 flag = 0;
 w = 0;
-
 for (c = 0; s[c] != '\0'; c++)
 {
 if (s[c] == ' ')
@@ -24,9 +23,9 @@ flag = 1;
 w++;
 }
 }
-
 return (w);
 }
+
 /**
 * **strtow - splits a string into words
 * @str: string to split
@@ -44,11 +43,9 @@ len++;
 words = count_word(str);
 if (words == 0)
 return (NULL);
-
 matrix = (char **) malloc(sizeof(char *) * (words + 1));
 if (matrix == NULL)
 return (NULL);
-
 for (i = 0; i <= len; i++)
 {
 if (str[i] == ' ' || str[i] == '\0')
@@ -59,7 +56,6 @@ end = i;
 tmp = (char *) malloc(sizeof(char) * (c + 1));
 if (tmp == NULL)
 return (NULL);
-
 while (start < end)
 *tmp++ = str[start++];
 *tmp = '\0';
@@ -71,8 +67,6 @@ c = 0;
 else if (c++ == 0)
 start = i;
 }
-
 matrix[k] = NULL;
-
 return (matrix);
 }
