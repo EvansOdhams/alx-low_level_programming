@@ -16,4 +16,6 @@ int set_bit(unsigned long int *n, unsigned int index);
 int clear_bit(unsigned long int *n, unsigned int index);
 /*Prototype for a function that returns the number of bits*/
 unsigned int flip_bits(unsigned long int n, unsigned long int m);
+/*Prototype for function that checks the endianness*/
+int get_endianness(void);
 #endif /* MAIN_H */
