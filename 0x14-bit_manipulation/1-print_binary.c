@@ -1,28 +1,30 @@
 #include "main.h"
 
 /**
-* print_binary - prints the binary representation of a number
-* @n: the number to print in binary
+* print_binary - Prints the binary representation of a number.
+* @n: The number to be printed in binary.
 *
-* Return: void
+* Return: void.
 */
 void print_binary(unsigned long int n)
 {
-/* Set the mask to the least significant bit (LSB) of n */
-unsigned long int mask = 1;
+int i, flag = 0;
 
-/* Find the most significant bit (MSB) of n */
-while (mask < n)
-mask = (mask << 1) | 1;
-
-/* print the binary representation of n */
-while (mask)
+if (n == 0)
 {
-if (n & mask) /* check if the mask bit is set in n */
-_putchar('1'); /* print 1 if set */
-else
-_putchar('0'); /* print 0 if not set */
-mask = mask >> 1; /* shift the mask to the right */
+_putchar('0');
+return;
+}
+
+for (i = 63; i >= 0; i--)
+{
+if ((n >> i) & 1)
+{
+flag = 1;
+_putchar('1');
+}
+else if (flag)
+_putchar('0');
 }
 }
 
