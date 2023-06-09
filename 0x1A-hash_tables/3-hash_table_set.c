@@ -1,42 +1,64 @@
-#ifndef HASH_TABLES_H
-#define HASH_TABLES_H
-
 #include <stdlib.h>
 #include <string.h>
+#include "hash_tables.h"
 
 /**
-* struct hash_node_s - Node of a hash table
+* create_new_node - Creates a new hash_node_t and initializes it
+* @key: The key for the new node
+* @value: The value for the new node
 *
-* @key: The key, string
-* The key is unique in the HashTable
-* @value: The value corresponding to a key
-* @next: A pointer to the next node of the List
+* Return: The newly created node, or NULL on failure
 */
-typedef struct hash_node_s
+hash_node_t *create_new_node(const char *key, const char *value)
 {
-char *key;
-char *value;
-struct hash_node_s *next;
-} hash_node_t;
+hash_node_t *new_node = malloc(sizeof(hash_node_t));
+
+if (new_node == NULL)
+return (NULL);
+
+new_node->key = strdup(key);
+new_node->value = strdup(value);
+new_node->next = NULL;
+
+return (new_node);
+}
 
 /**
-* struct hash_table_s - Hash table data structure
+* hash_table_set - Adds or updates an element in the hash table
+* @ht: The hash table to modify
+* @key: The key to add or update
+* @value: The value associated with the key
 *
-* @size: The size of the array
-* @array: An array of size @size
-* Each cell of this array is a pointer to the first node of a linked list,
-* because we want our HashTable to use a Chaining collision handling
+* Return: 1 if successful, 0 otherwise
 */
-typedef struct hash_table_s
+int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 {
-unsigned long int size;
-hash_node_t **array;
-} hash_table_t;
+unsigned long int index;
+hash_node_t *new_node, *temp;
 
-/* Function prototypes */
-hash_table_t *hash_table_create(unsigned long int size);
-unsigned long int key_index(const unsigned char *key, unsigned long int size);
-int hash_table_set(hash_table_t *ht, const char *key, const char *value);
-hash_node_t *create_node(const char *key, const char *value);
+if (ht == NULL || key == NULL || *key == '\0')
+return (0);
 
-#endif /* HASH_TABLES_H */
+index = key_index((unsigned char *)key, ht->size);
+
+temp = ht->array[index];
+while (temp != NULL)
+{
+if (strcmp(temp->key, key) == 0)
+{
+free(temp->value);
+temp->value = strdup(value);
+return (1);
+}
+temp = temp->next;
+}
+
+new_node = create_new_node(key, value);
+if (new_node == NULL)
+return (0);
+
+new_node->next = ht->array[index];
+ht->array[index] = new_node;
+
+return (1);
+}
