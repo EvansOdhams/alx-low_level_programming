@@ -1,0 +1,46 @@
+# Makefile for the "school" executable
+
+# Compiler to be used
+CC = gcc
+
+# Compiler flags
+CFLAGS = -Wall -Werror -Wextra -pedantic
+
+# Source files
+SRC = main.c school.c
+
+# Object files (automatically derived from source files)
+OBJ = $(SRC:.c=.o)
+
+# Name of the executable
+NAME = school
+
+# Program to delete files
+RM = rm -f
+
+# The "all" rule is the default and builds the executable.
+all: $(NAME)
+
+# Rule to build the executable using the object files.
+$(NAME): $(OBJ)
+	$(CC) $(OBJ) -o $(NAME)
+
+# Rule to compile the source files into object files with specified compiler flags.
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# The "clean" rule deletes Emacs and Vim temporary files along with the executable.
+clean:
+	$(RM) *~ $(NAME)
+
+# The "oclean" rule deletes the object files.
+oclean:
+	$(RM) $(OBJ)
+
+# The "fclean" rule deletes Emacs and Vim temporary files, the executable, and the object files.
+fclean: clean oclean
+
+# The "re" rule forces recompilation of all source files.
+re: fclean all
+
+.PHONY: all clean oclean fclean re
