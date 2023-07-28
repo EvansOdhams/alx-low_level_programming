@@ -1,0 +1,15 @@
+# Makefile for the "school" executable
+
+# Compiler to be used
+CC = gcc
+
+# Source files
+SRC = main.c school.c
+
+# The "all" rule is the default and builds the executable.
+all:
+	$(CC) $(SRC) -o school
+
+# The "clean" rule removes the generated executable and object files.
+clean:
+	rm -f school
