@@ -1,0 +1,11 @@
+# Makefile for the "school" executable
+# No variables are required for this simple example.
+
+# The "all" rule is the default and builds the executable.
+all:
+	gcc main.c school.c -o school
+
+# The "clean" rule removes the generated executable and object files.
+clean:
+	rm -f school
+
